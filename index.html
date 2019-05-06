@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <div id="up1" class="" style="background-color:white">
+    </div>
+
+
+    <p style="font-weight:bold;">Текущее время: <span id="siteTime"></span></p>
+    <button id="start">start</button>
+    <!-- <button id="stopp">stop</button> -->
+
+
+
+
+
+    <script>
+        //document.body.onload=()=>{ 
+
+        l = window.innerWidth / 1.2; //размер доски
+
+
+        up1.style.width = l / 2 + "px";
+        up1.style.height = l / 2 + "px";
+        siteTime.innerHTML = "00:00:00";
+
+
+        const newGame = () => {
+            up1.innerHTML = "";
+            rand(arrColor);
+            siteTime.innerHTML = "00:00:00";
+
+            for (let i = 16; i >= 1; i--) {
+                const block1 = document.createElement('div');
+                block1.style.height = l / 8 - 2 + 'px';
+
+                block1.onclick = (e) => {
+
+
+                    e.target.style.opacity = 1;
+
+                    let op = game({
+                        color: e.target.style.backgroundColor,
+                        order: e.target.dataset.order
+                    });
+
+                    if (op[0] === "n") {
+
+                        setTimeout(function() {
+                            coloreNo();
+                        }, 500);
+
+
+
+                    } else if (op[0] === "y") {
+
+                        elements[+op[1]].dataset.opa = "1";
+
+                        elements[+op[2]].dataset.opa = "1";
+                        setTimeout(function() {
+                            coloreNo();
+                        }, 500);
+                    }
+
+                };
+                document.getElementById('up1').appendChild(block1);
+
+            };
+
+            const elements = up1.querySelectorAll('div');
+
+            const coloreNo = () => {
+
+                Object.keys(elements).map(el => {
+                    elements[el].style.opacity = elements[el].dataset.opa;
+
+                });
+
+                if ((Object.keys(elements).filter(el =>
+
+                        elements[el].dataset.opa == 1
+
+                    )).length === 16) stoptime();
+            };
+
+            const colore = () => {
+                Object.keys(elements).map(el => {
+                    elements[el].style.backgroundColor = arrColor[el];
+
+                    elements[el].dataset.order = +el;
+                    elements[el].dataset.opa = 0; //0.2 тест!
+
+                });
+
+
+            };
+
+            colore();
+
+            coloreNo();
+
+        }; //newgame
+
+
+        //newGame();
+        const stoptime = () => {
+            clearInterval(tic);
+            alert("Вы выиграли! за время:" + siteTime.innerHTML);
+
+        };
+
+        start.onclick = () => {
+            clearInterval(tic);
+            newGame();
+            TimerStart();
+
+
+        };
+
+
+
+
+        //stopp.onclick = () => { 
+
+        //clearInterval(tic);
+
+        //};
+    </script>
+</body>
+
+</html>

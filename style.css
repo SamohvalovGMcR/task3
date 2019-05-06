@@ -1,0 +1,17 @@
+/* Styles go here */
+
+#up1 {
+    margin-left: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-around;
+    background: url(images/4X4N.gif) no-repeat;
+    background-size: 100% 100%;
+}
+
+#up1>div {
+    box-sizing: content-box;
+    border: 1px solid black;
+}
