@@ -47,6 +47,9 @@
             for (let i = 16; i >= 1; i--) {
                 const block1 = document.createElement('div');
                 block1.style.height = l / 8 - 2 + 'px';
+                block1.ondragstart = function() {
+                    return false;
+                };
 
                 block1.onclick = (e) => {
 
